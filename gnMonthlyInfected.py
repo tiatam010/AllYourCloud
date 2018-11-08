@@ -31,12 +31,15 @@ asndata = asnraw.json()
 
 tagstats = defaultdict(int)
 
-for i in asndata:
-    tagstats[str(i['tag_name'])] += 1
+if type(asndata) == list:
+    for i in asndata:
+        tagstats[str(i['tag_name'])] += 1
 
-sorted_tags = [x for x in tagstats.items()]
-sorted_tags.sort(key=lambda x: x[1])
-sorted_tags.reverse()
+    sorted_tags = [x for x in tagstats.items()]
+    sorted_tags.sort(key=lambda x: x[1])
+    sorted_tags.reverse()
 
-pprint(sorted_tags)
-print("Total infected hosts in " + str(asn) + ": " + str(sum(n for _, n in sorted_tags)))
+    pprint(sorted_tags)
+    print("Total infected hosts in " + str(asn) + ": " + str(sum(n for _, n in sorted_tags)))
+else:
+    print("no infections found")
